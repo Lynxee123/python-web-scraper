@@ -10,7 +10,8 @@ COPY scraper.py .
 COPY output ./output
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Run the scraper
-CMD ["python", "scraper.py"]
+# CMD ["python", "scraper.py"]
+CMD ["bash"]

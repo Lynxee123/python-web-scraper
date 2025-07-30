@@ -1,11 +1,33 @@
+# Import libraries for web scraping
+#   1) requests > allows to pull a website
+#   2) BeautifulSoup > parse html 
 import requests
 from bs4 import BeautifulSoup
 
-URL = "http://quotes.toscrape.com/"
+# Define website to scrape
+url = "https://thehackernews.com/"
 
-scrape = requests.get(URL)
-soup = BeautifulSoup(scrape.text, "html.parser")
-quotes = soup.findAll("span", attrs={"class":"text"})
 
-for quote in quotes:
-    print(quote.text)
+#print(doc.find_all("span", class_={"h-tags"}))
+
+# 
+def scrapeArticles():
+    # 
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, "html.parser")
+    
+    # 
+    articles=[]
+    
+    # 
+    for post in soup.find_all("div", class_={"body-post"}):
+        title = post.find("h2", class_="home-title")
+        date = post.find("span", class_="h-datetime")
+        link = post.find("a", class_="story-link")
+        tags = post.find("span", class_="h-tags")
+
+        print(tags)
+
+scrapeArticles()
+# Prints response code
+#print(requests.get(url))

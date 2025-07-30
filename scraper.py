@@ -21,12 +21,13 @@ def scrapeArticles():
     
     # 
     for post in soup.find_all("div", class_={"body-post"}):
-        title = post.find("h2", class_="home-title")
+        title = post.find("h2", class_="home-title").text
         date = post.find("span", class_="h-datetime")
         link = post.find("a", class_="story-link")
+        summary = post.find("div", class_="home-desc").text
         tags = post.find("span", class_="h-tags")
 
-        print(tags)
+        print("title: " + title + "\n" + "description:" + summary + "\n")
 
 scrapeArticles()
 # Prints response code

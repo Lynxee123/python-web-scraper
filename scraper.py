@@ -3,6 +3,7 @@
 #   2) BeautifulSoup > parse html 
 import requests
 from bs4 import BeautifulSoup
+# import pandas as pd
 
 # Define website to scrape
 url = "https://thehackernews.com/"
@@ -21,14 +22,31 @@ def scrapeArticles():
     
     # 
     for post in soup.find_all("div", class_={"body-post"}):
-        title = post.find("h2", class_="home-title").text
-        date = post.find("span", class_="h-datetime")
-        link = post.find("a", class_="story-link")
-        summary = post.find("div", class_="home-desc").text
-        tags = post.find("span", class_="h-tags")
+        title = post.find("h2", class_="home-title").text.strip()
+        
+        date = post.find("span", class_="h-datetime").text.strip()
+        link = post.find("a", class_="story-link")['href']
+        summary = post.find("div", class_="home-desc").text.strip()
+        tag_elements = post.find("span", class_="h-tags")
+        if tag_elements:
+            tags = [tag.text.strip() for tag in tag_elements]
+        else:
+            tags = ""
 
-        print("title: " + title + "\n" + "description:" + summary + "\n")
+        articles.append({
+            "Title": title,
+            "Date": date,
+            "Link": link,
+            "Summary": summary,
+            "tags": tags
+        })
+        
+        
+        print(articles)
+
 
 scrapeArticles()
+
+
 # Prints response code
 #print(requests.get(url))

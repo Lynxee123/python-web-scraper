@@ -3,13 +3,10 @@
 #   2) BeautifulSoup > parse html 
 import requests
 from bs4 import BeautifulSoup
-# import pandas as pd
+import pandas as pd
 
 # Define website to scrape
 url = "https://thehackernews.com/"
-
-
-#print(doc.find_all("span", class_={"h-tags"}))
 
 # 
 def scrapeArticles():
@@ -43,10 +40,12 @@ def scrapeArticles():
         
         
         print(articles)
+        # return articles
 
 
-scrapeArticles()
+scrapedData = scrapeArticles()
 
-
-# Prints response code
-#print(requests.get(url))
+# Convert to DataFrame
+df = pd.DataFrame(scrapedData)
+print(df)
+# Save to output folder
